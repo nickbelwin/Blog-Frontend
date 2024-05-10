@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import React from 'react';
+import { basePath } from "../Constants/constants";
 
 function InsertBlog(props) {
     const [formData, setFormData] = useState({
@@ -12,7 +13,7 @@ function InsertBlog(props) {
     const getBlogData = async () => {
         try {
             setLoading(true);
-            let res = await fetch("https://blog-backend-inky.vercel.app/getBlogs");
+            let res = await fetch(`${basePath}/getBlogs`);
             let resJson = await res.json();
             console.log(resJson.data);
             setAllData(resJson.data)
@@ -29,7 +30,7 @@ function InsertBlog(props) {
     const postBlog = async () => {
         try {
             setLoading(true);
-            let res = await fetch("https://blog-backend-inky.vercel.app/insertBlog", {
+            let res = await fetch(`${basePath}/insertBlog`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
