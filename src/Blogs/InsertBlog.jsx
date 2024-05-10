@@ -52,11 +52,11 @@ function InsertBlog(props) {
 
     return (
         <div>
-            <div className=" flex flex-col items-center justify-center w-fit p-4 bg-white border-2 rounded-xl m-auto my-3">
+            <div className=" formBox flex flex-col items-center justify-center w-fit p-4 bg-white border-2 rounded-xl m-auto my-3">
                 <h1 className=" text-2xl font-bold my-2">Add New Blog</h1>
                 <input type="text" className=" border-2 rounded-xl mb-3 px-3 py-2 w-full" placeholder="Title" onChange={(e) => { setFormData({ ...formData, title: e.target.value }) }} />
                 <textarea className=" border-2 rounded-xl mb-3 px-3 py-2 w-full" placeholder="Blog Description" onChange={(e) => { setFormData({ ...formData, description: e.target.value }) }}></textarea>
-                <button onClick={postBlog}>{loading ? "Loading..." : "Submit"}</button>
+                <button className=" bg-blue-500 font-semibold text-white px-6 py-1 rounded-xl" onClick={postBlog}>{loading ? "Loading..." : "Submit"}</button>
             </div>
             <div className=" px-4">
             <h1 className=" text-4xl bg-gray-200 rounded-xl py-3 font-bold my-2 w-full">Blogs</h1>

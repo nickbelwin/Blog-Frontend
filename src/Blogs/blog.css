@@ -1,9 +1,14 @@
-
+.formBox{
+    width: 45rem;
+}
 .cardBox{
     grid-template-columns: 1fr 1fr 1fr 1fr;
 }
 
 @media (max-width:520px){
+    .formBox{
+        width: 95vw;
+    }
     .cardBox{
         grid-template-columns: 1fr;
     }
