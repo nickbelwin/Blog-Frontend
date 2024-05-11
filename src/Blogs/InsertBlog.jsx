@@ -59,12 +59,11 @@ function InsertBlog(props) {
                 <button className=" bg-blue-500 font-semibold text-white px-6 py-1 rounded-xl" onClick={postBlog}>{loading ? "Loading..." : "Submit"}</button>
             </div>
             <div className=" px-4">
-            <h1 className=" text-4xl bg-gray-200 rounded-xl py-3 font-bold my-2 w-full">Blogs</h1>
+                <h1 className=" text-4xl bg-gray-200 rounded-xl py-3 font-bold my-2 w-full">Blogs</h1>
             </div>
-            <div className=" grid justify-center items-center cardBox gap-2 grow p-5 border-2 rounded-xl mx-3">
-            
-                {!loading2 ?
-                    allData?.map((val) => {
+            {!loading2 ?
+                <div className=" grid justify-center items-center cardBox gap-5 grow p-5 border-2 rounded-xl mx-3">
+                    {allData?.map((val) => {
                         return (
                             <div className=" border-2 bg-blue-200 rounded-xl p-3 card" >
                                 <h1 className=" text-2xl font-semibold mb-4">{val?.title}</h1>
@@ -72,9 +71,11 @@ function InsertBlog(props) {
                                 <p className=" text-left">{val?.description}</p>
                             </div>
                         )
-                    })
-                    : <h1 className=" w-fit m-auto text-lg font-semibold text-blue-600">Loading...</h1> }
-            </div>
+                    })}
+                </div>
+                : <h1 className=" w-fit m-auto text-2xl font-semibold text-blue-600">
+                        <img className=" w-52" src="/img/loading2.gif" alt="" />
+                    </h1>}
 
         </div>
     );

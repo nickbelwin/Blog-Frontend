@@ -4,6 +4,9 @@
 .cardBox{
     grid-template-columns: 1fr 1fr 1fr 1fr;
 }
+.card{
+    height: 20rem;
+}
 
 @media (max-width:520px){
     .formBox{
