@@ -1,0 +1,24 @@
+.sticky {
+    position: fixed;
+    top: 0rem;
+    width: 100%;
+    background-color: white;
+    transition: all .5s ease-in-out ;
+    padding: 1rem 0;
+    z-index: 999;
+    animation-name: menu_sticky;
+    animation-duration: 0.90s;
+    animation-timing-function: ease-out;
+    box-shadow: 0 0 60px 0 rgba(0, 0, 0, 0.07);
+}
+@keyframes menu_sticky{
+    0% {
+        transform: translateY(-90px);
+    }
+    50% {
+        transform: translateY(-70px);
+    }
+    100% {
+       transform: translateY(0px);
+    }
+}

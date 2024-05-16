@@ -1,38 +1,101 @@
-.App {
-  text-align: center;
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu+Sans:ital,wght@0,100..800;1,100..800&display=swap');
+
+* {
+  font-family: "Ubuntu Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+  font-variation-settings:
+    "width" 100;
+}
+body{
+  background-color: rgb(255, 255, 255);
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+/* width and height */
+.width90{
+  width: 90%;
+}
+.height30{
+  height: 30rem;
+
+}
+.imgBox {
+  width: 45%;
+  height: 40rem;
+}
+.sliderBox{
+  grid-template-columns: 2fr 1fr;
+}
+#swiperOne {
+  margin-left: 0;
+  margin-right: 0;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+#swiperTwo {
+  margin-left: 0;
+  margin-right: 0;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+.swipOne {
+  border-radius: 10px;
+  /* width: 45rem; */
+  height: 30.5rem;
+
+}
+
+.swipTwo {
+  border-radius: 10px;
+  /* width: 35rem; */
+  width: 100%;
+  height: 15rem;
+
+}
+
+.swiper-slide {
+  width: 45rem;
+}
+
+/* on Hover css */
+.hoverWhite {
+  transition: all .8s;
+  cursor: pointer;
+}
+
+.hoverWhite:hover {
+  background-color: white;
+  color: black;
+  transition: all .5s;
+}
+
+.hoverBlack {
+  transition: all .8s;
+  cursor: pointer;
+}
+
+.hoverBlack:hover {
+  background-color: black;
   color: white;
+  transition: all .5s;
 }
 
-.App-link {
-  color: #61dafb;
+/* border css */
+.grayBorderBottom {
+  border-bottom: 1px solid rgb(210, 210, 210);
+}
+.babyBlueBorderBottom{
+  border-bottom: 3px solid rgb(71, 124, 239);
+}
+.blackBorderBottom{
+  border-bottom: 3px solid rgb(0, 0, 0);
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+/* text size */
+.text-xxs {
+  font-size: 0.5rem;
+}
+
+/* background css */
+
+.blurBack {
+  background-color: #00000088;
 }

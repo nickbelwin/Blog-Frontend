@@ -52,30 +52,27 @@ function InsertBlog(props) {
 
     return (
         <div>
-            <div className=" formBox flex flex-col items-center justify-center w-fit p-4 bg-white border-2 rounded-xl m-auto my-3">
-                <h1 className=" text-2xl font-bold my-2">Add New Blog</h1>
-                <input type="text" className=" border-2 rounded-xl mb-3 px-3 py-2 w-full" placeholder="Title" onChange={(e) => { setFormData({ ...formData, title: e.target.value }) }} />
-                <textarea className=" border-2 rounded-xl mb-3 px-3 py-2 w-full" placeholder="Blog Description" onChange={(e) => { setFormData({ ...formData, description: e.target.value }) }}></textarea>
-                <button className=" bg-blue-500 font-semibold text-white px-6 py-1 rounded-xl" onClick={postBlog}>{loading ? "Loading..." : "Submit"}</button>
-            </div>
-            <div className=" px-4">
-                <h1 className=" text-4xl bg-gray-200 rounded-xl py-3 font-bold my-2 w-full">Blogs</h1>
-            </div>
-            {!loading2 ?
-                <div className=" grid justify-center items-center cardBox gap-5 grow p-5 border-2 rounded-xl mx-3">
-                    {allData?.map((val) => {
-                        return (
-                            <div className=" border-2 bg-blue-200 rounded-xl p-3 card" >
-                                <h1 className=" text-2xl font-semibold mb-4">{val?.title}</h1>
-                                <h4 className=" text-left text-xs font-semibold text-gray-400">Description:</h4>
-                                <p className=" text-left">{val?.description}</p>
-                            </div>
-                        )
-                    })}
+            
+            <div className=" border-2 rounded-xl mx-3 ">
+                <div className=" px-4">
+                    <h1 className=" text-4xl bg-gray-200 rounded-xl py-3 font-bold my-2 w-full">Blogs</h1>
                 </div>
-                : <h1 className=" w-fit m-auto text-2xl font-semibold text-blue-600">
+                {!loading2 ?
+                    <div className=" grid justify-center items-center cardBox gap-5 grow p-5 ">
+                        {allData?.map((val) => {
+                            return (
+                                <div className=" border-2 bg-blue-200 rounded-xl p-3 card" >
+                                    <h1 className=" text-2xl font-semibold mb-4">{val?.title}</h1>
+                                    <h4 className=" text-left text-xs font-semibold text-gray-400">Description:</h4>
+                                    <p className=" text-left">{val?.description}</p>
+                                </div>
+                            )
+                        })}
+                    </div>
+                    : <h1 className=" w-fit m-auto text-2xl font-semibold text-blue-600">
                         <img className=" w-52" src="/img/loading2.gif" alt="" />
                     </h1>}
+            </div>
 
         </div>
     );
