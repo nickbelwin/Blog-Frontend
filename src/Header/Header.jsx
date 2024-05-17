@@ -1,12 +1,23 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import "./header.css";
 import { Link, Outlet } from 'react-router-dom';
-import { navList } from '../Constants/constants';
+import { months, navList } from '../Constants/constants';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 
 function Header(props) {
-
+    const [todayDate,setTodayDate]=useState(null);
+    useEffect(()=>{
+        let today=new Date();
+        let date= today.getDate();
+        let month=today.getMonth();
+        let year= today.getFullYear();
+        setTodayDate({
+            date:date,
+            month:month,
+            year:year,
+        })
+    },[])
     gsap.registerPlugin(useGSAP);
     useGSAP(() => {
 
@@ -37,6 +48,12 @@ function Header(props) {
             duration: 1,
             delay: 0.5,
         });
+        // gsap.from('.sticky', {
+        //     y:-100,
+        //     opacity: 0,
+        //     duration: 1.5,
+        //     delay: 1.2
+        // });
       
     }
     );
@@ -66,10 +83,10 @@ function Header(props) {
                             <h4 className=' text-sm font-semibold navOne'>LinkedIn</h4>
                         </div>
                         <div className='  flex items-center gap-1 py-0.5 px-1 rounded-lg navOne'>
-                            <h1 className=' text-3xl font-bold'>12</h1>
+                            <h1 className=' text-3xl font-bold'>{todayDate?.date}</h1>
                             <div className=' text-xs font-semibold'>
-                                <h4 className=' h-3'>May</h4>
-                                <h4>2024</h4>
+                                <h4 className=' h-3'>{months[todayDate?.month]}</h4>
+                                <h4>{todayDate?.year}</h4>
                             </div>
                         </div>
                     </div>
@@ -92,7 +109,7 @@ function Header(props) {
                             {
                                 navList?.map((val, idx) => {
                                     return (
-                                        <Link className=' flex items-center nav'>
+                                        <Link key={val?.name} className=' flex items-center nav'>
                                             <li className=' whitespace-nowrap  hoverBlack py-0.5 px-1 rounded-lg'>{val?.name} </li>
                                             <span className=' px-1 text-blue-600'>{navList?.length - 1 != idx ? "|" : null}</span>
                                         </Link>

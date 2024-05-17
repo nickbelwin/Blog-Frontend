@@ -19,6 +19,7 @@ import Footer from '../Footer/Footer';
 function Home(props) {
     const navigate = useNavigate();
     // gsap.registerPlugin(useGSAP);
+
     useGSAP(() => {
         gsap.from('.swipOne', {
             x: -90,
@@ -38,12 +39,21 @@ function Home(props) {
             duration: 1,
             delay: 0.2
         });
+
+        gsap.from('.popUp', {
+            scale:0,
+            opacity: 0,
+            duration: 1,
+            delay: 0.2
+        });
     }
     );
     return (
         <section>
             <div className=' width90  m-auto'>
-            <h1 className=' py-5 text-5xl font-extrabold w-3/4 m-auto text-center'>Enlighten your thinking with a host of topics on which Rajashri meticulously presents her views and opinions.</h1>
+                <h1 className=' py-5 text-5xl font-extrabold w-3/4 m-auto text-center popUp'>Enlighten
+                    your thinking with a host of topics on which Rajashri meticulously presents her views
+                    and opinions.</h1>
                 <div className=' mb-10 grid sliderBox gap-2 bg-white rounded-lg p-5'>
                     <Swiper
                         spaceBetween={30}
@@ -209,9 +219,9 @@ function Home(props) {
                         </div> */}
                     </div>
                     <div>
-                        <nav className=' flex items-end justify-between babyBlueBorderBottom mb-3 text-lg '>
-                            <h1 className=' whitespace-nowrap w-fit font-semibold bg-blue-600 text-white py-0.5 px-1 mr-10 '>
-                                Diversity
+                        <nav className=' flex items-end justify-between greenBorderBottom  mb-3 text-lg '>
+                            <h1 className=' whitespace-nowrap w-fit font-semibold bg-green-600 text-white py-0.5 px-3 mr-10 '>
+                                Latest
                             </h1>
                         </nav>
                         <div className=' grid grid-cols-4'>

@@ -1,5 +1,5 @@
-// export const basePath="http://localhost:4000"
-export const basePath = "https://blog-backend-inky.vercel.app"
+export const basePath="http://localhost:4000"
+// export const basePath = "https://blog-backend-inky.vercel.app"
 
 export const navList = [
     { path: "", name: "Posh" },
@@ -15,7 +15,8 @@ export const navList = [
     { path: "", name: "Dialogue" },
     { path: "", name: "Stories about you" },
 ];
-
+export const monthFull = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+export const  months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'];
 export const testList = [
     {
         img: "https://rajashrirajashekhar.com/wp-content/uploads/2021/06/What-Men-Want-Dutch-Poster.jpg",

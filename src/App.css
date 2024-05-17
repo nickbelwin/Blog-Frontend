@@ -88,6 +88,9 @@ body{
 .blackBorderBottom{
   border-bottom: 3px solid rgb(0, 0, 0);
 }
+.greenBorderBottom{
+  border-bottom: 3px solid rgb(163, 215, 42);
+}
 
 /* text size */
 .text-xxs {

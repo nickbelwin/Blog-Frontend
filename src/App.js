@@ -12,8 +12,9 @@ function App() {
       <Routes>
         <Route path='/' element={<Header />} >
           <Route index element={<Home/>} />
-          <Route path='/add-new-blog' element={<AddNewBlog />} />
+          
         </Route>
+        <Route path='/add-new-blog' element={<AddNewBlog />} />
       </Routes>
     </div>
   );
