@@ -17,7 +17,9 @@ body{
 }
 .height30{
   height: 30rem;
-
+}
+.height90{
+  max-height: 90vh;
 }
 .imgBox {
   width: 45%;
