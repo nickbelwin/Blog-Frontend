@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 // Import Swiper React components
 import { Swiper, SwiperSlide } from 'swiper/react';
 // Import Swiper styles
@@ -15,10 +15,25 @@ import "./home.css";
 import { Autoplay, Pagination, Navigation } from 'swiper/modules';
 import { Link, useNavigate } from 'react-router-dom';
 import Footer from '../Footer/Footer';
+import axios from "axios";
+import parse from 'html-react-parser';
+
 
 function Home(props) {
     const navigate = useNavigate();
-    // gsap.registerPlugin(useGSAP);
+    const [allBlogs, setAllBlogs] = useState([]);
+    gsap.registerPlugin(useGSAP);
+
+    const getBlogdata = async () => {
+        let res = await axios("http://localhost:4000/getBlogs");
+        console.log(res.data.data);
+        setAllBlogs(res.data.data);
+
+    }
+    useEffect(() => {
+        getBlogdata();
+    }, [])
+
 
     useGSAP(() => {
         gsap.from('.swipOne', {
@@ -41,7 +56,7 @@ function Home(props) {
         });
 
         gsap.from('.pop', {
-            scale:0,
+            scale: 0,
             opacity: 0,
             duration: 1,
             delay: 0.2
@@ -71,21 +86,22 @@ function Home(props) {
                         className="mySwiper swipOne"
                     >
                         {
-                            testList?.map((val) => {
+                            Array.isArray(allBlogs) && allBlogs?.map((val) => {
+                                console.log(val?.category.includes("Diversity"));
                                 return (
-                                    <Link to={`https://i.pinimg.com/564x/26/b3/0b/26b30b7baf1204e6f093fda17819e5d6.jpg`}>
-                                        <div className=' relative h-fit'>
-                                            <SwiperSlide className='  '>
-                                                <Link target='_blank' to={`https://i.pinimg.com/564x/26/b3/0b/26b30b7baf1204e6f093fda17819e5d6.jpg`}>
-
-                                                    <img className=' w-full h-full object-cover' src={val?.img} alt="" />
-                                                    <h1 className=' px-3 blurBack text-left absolute z-30 bottom-3 left-0 font-semibold text-2xl py-4 text-white'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi debitis molestiae beatae quae possimus pariatur, id hic nulla iusto repudiandae.</h1>
-
-                                                </Link>
-                                            </SwiperSlide>
-
-                                        </div>
-                                    </Link>
+                                    <>
+                                        {
+                                            val?.category.includes("Diversity") ?
+                                                <div key={val._id} className=' relative h-fit'>
+                                                    <SwiperSlide className='  '>
+                                                        <Link target='_blank' to={``}>
+                                                            <img className=' w-full h-full object-cover' src={val?.image} alt="" />
+                                                            <h1 className=' px-3 blurBack text-left absolute z-30 w-full bottom-3 left-0 font-semibold text-2xl py-4 text-white'>{val?.title}</h1>
+                                                        </Link>
+                                                    </SwiperSlide>
+                                                </div> : null
+                                        }
+                                    </>
                                 )
                             })
                         }

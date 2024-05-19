@@ -275,6 +275,9 @@ function AddNewBlog(props) {
                     </div>
                 </form>
             </div>
+            <div className=' p-10 flex flex-col gap-3'>
+                <p >{parse(`${allBlogs[0]?.description}`)}</p>
+            </div>
         </div>
     );
 }
