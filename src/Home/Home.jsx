@@ -40,7 +40,7 @@ function Home(props) {
             delay: 0.2
         });
 
-        gsap.from('.popUp', {
+        gsap.from('.pop', {
             scale:0,
             opacity: 0,
             duration: 1,
@@ -51,7 +51,7 @@ function Home(props) {
     return (
         <section>
             <div className=' width90  m-auto'>
-                <h1 className=' py-5 text-5xl font-extrabold w-3/4 m-auto text-center popUp'>Enlighten
+                <h1 className=' py-5 text-5xl font-extrabold w-3/4 m-auto text-center pop'>Enlighten
                     your thinking with a host of topics on which Rajashri meticulously presents her views
                     and opinions.</h1>
                 <div className=' mb-10 grid sliderBox gap-2 bg-white rounded-lg p-5'>
