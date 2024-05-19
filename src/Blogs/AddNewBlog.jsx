@@ -11,14 +11,30 @@ function AddNewBlog(props) {
         title: "",
         date: "",
         author: "",
-        category: "",
+        category: [],
         image: "",
         description: "",
     });
     const [todayDate, setTodayDate] = useState(null);
     const [errorMsg, setErrorMsg] = useState(null);
 
-
+    const handleCategory = (e) => {
+        let data = e.target.value;
+        if (!formData?.category.includes(data)) {
+            let cate = [...formData?.category, data];
+            setFormData({ ...formData, category: cate });
+        }
+    }
+    const handleRemoveCtegory = (e) => {
+        let idx = e.target.id;
+        let cate = formData?.category;
+        cate = cate.filter((val, index) => {
+            if (index != idx) {
+                return val;
+            }
+        })
+        setFormData({ ...formData, category: cate });
+    }
     useEffect(() => {
         let today = new Date();
         let date = today.getDate();
@@ -89,7 +105,7 @@ function AddNewBlog(props) {
                     title: "",
                     date: "",
                     author: "",
-                    category: "",
+                    category: [],
                     image: "",
                     description: "",
                 });
@@ -184,7 +200,7 @@ function AddNewBlog(props) {
                         </div>
                         <div className=' w-full flex flex-col'>
                             <label htmlFor="" className=' font-semibold ml-2'>Category</label>
-                            <select value={formData?.category} className=' outline-none border-2 rounded-xl mb-3 px-3 py-2 ' onChange={(e) => { setFormData({ ...formData, category: e.target.value }); setErrorMsg(false); }}  >
+                            <select id='category' value={""} className=' outline-none border-2 rounded-xl mb-3 px-3 py-2 ' onChange={(e) => { handleCategory(e); setErrorMsg(false); }}  >
                                 <option value="" selected disabled>--Select--</option>
                                 {
                                     categoryList?.map((val) => {
@@ -194,6 +210,11 @@ function AddNewBlog(props) {
                                     })
                                 }
                             </select>
+                            <div className=' flex items-center flex-wrap gap-2 w-full '>
+                                {Array.isArray(formData?.category) && formData?.category?.map((val,idx) => {
+                                    return <h1 className=' w-fit px-2 border-2 rounded-lg bg-blue-400 text-white font-semibold' key={val} >{val} <span className='hoverBlack px-1 rounded-lg cursor-pointer' id={idx} onClick={handleRemoveCtegory}>X</span></h1>
+                                })}
+                            </div>
                         </div>
                     </div>
                     <div className=' grid gridResponse gap-3 w-full'>

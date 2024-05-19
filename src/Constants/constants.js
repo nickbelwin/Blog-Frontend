@@ -16,10 +16,10 @@ export const navList = [
     { path: "", name: "Stories about you" },
 ];
 export const categoryList=[
-    {path:"", name:"BUIDLING RELATIONS"},
-    { path: "", name: "Posh" },
-    { path: "", name: "Legal updates" },
+    {path:"", name:"Building Relation"},
+    { path: "", name: "Workplace" },
     { path: "", name: "Diversity " },
+    { path: "", name: "Legal updates" },
     { path: "", name: "Equity" },
     { path: "", name: "Case studies " },
     { path: "", name: "Expert talk" },
