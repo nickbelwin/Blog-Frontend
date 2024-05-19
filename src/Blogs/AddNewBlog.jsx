@@ -5,6 +5,7 @@ import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import ReactQuill from "react-quill";
 import 'react-quill/dist/quill.snow.css';
+import parse from 'html-react-parser';
 
 function AddNewBlog(props) {
     const [formData, setFormData] = useState({
@@ -15,12 +16,20 @@ function AddNewBlog(props) {
         image: "",
         description: "",
     });
+    const [allBlogs,setAllBlogs]=useState([]);
     const [todayDate, setTodayDate] = useState(null);
     const [errorMsg, setErrorMsg] = useState(null);
+    const [description,setDescription]=useState("");
 
+    useEffect(()=>{
+        if(description){
+            setFormData({...formData, description: description});
+        }
+    },[description])
     const handleCategory = (e) => {
         let data = e.target.value;
-        if (!formData?.category.includes(data)) {
+        console.log(formData?.category);
+        if ( Array.isArray(formData.category) && !formData?.category.includes(data)) {
             let cate = [...formData?.category, data];
             setFormData({ ...formData, category: cate });
         }
@@ -46,6 +55,15 @@ function AddNewBlog(props) {
             year: year,
         })
     }, []);
+    const getBlogdata=async()=>{
+        let res= await axios("http://localhost:4000/getBlogs");
+        console.log(res.data.data);
+        setAllBlogs(res.data.data);
+
+    }
+    useEffect(()=>{
+        getBlogdata();
+    },[])
     const [currentAddedBlog, setCurrentAddedBlog] = useState(false);
     const [loading, setLoading] = useState(false);
     gsap.registerPlugin(useGSAP);
@@ -229,7 +247,7 @@ function AddNewBlog(props) {
                     </div>
                     <div className=' w-full'>
                         <label htmlFor="" className=' font-semibold ml-2'>Description</label>
-                        {/* <ReactQuill
+                        <ReactQuill
                         id='textBox'
                         theme='snow'
                         className=" mb-3 w-full"
@@ -238,8 +256,8 @@ function AddNewBlog(props) {
                         value={description}
                         // onChange={(e) => { setFormData({ ...formData, description: e.target.value }); setErrorMsg(false); }}
                         onChange={setDescription}
-                        /> */}
-                        <textarea value={formData?.description} className=" border-2 rounded-xl mb-3 px-3 py-2 w-full" rows={5} placeholder="Blog Description*" onChange={(e) => { setFormData({ ...formData, description: e.target.value }); setErrorMsg(false); }}  ></textarea>
+                        />
+                        {/* <textarea value={formData?.description} className=" border-2 rounded-xl mb-3 px-3 py-2 w-full" rows={5} placeholder="Blog Description*" onChange={(e) => { setFormData({ ...formData, description: e.target.value }); setErrorMsg(false); }}  ></textarea> */}
                     </div>
                     <div className=' relative w-full pt-5'>
                         {errorMsg ?
