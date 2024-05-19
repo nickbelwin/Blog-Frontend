@@ -17,7 +17,7 @@ function Header(props) {
             month:month,
             year:year,
         })
-    },[])
+    },[]);
     gsap.registerPlugin(useGSAP);
     useGSAP(() => {
 
@@ -48,13 +48,6 @@ function Header(props) {
             duration: 1,
             delay: 0.5,
         });
-        // gsap.from('.sticky', {
-        //     y:-100,
-        //     opacity: 0,
-        //     duration: 1.5,
-        //     delay: 1.2
-        // });
-      
     }
     );
     const isSticky = (e) => {

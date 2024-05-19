@@ -1,18 +1,38 @@
 .formBox{
-    width: 60vw;
+    width: 62rem;
+    padding: 2rem ;
 }
-.cardBox{
-    grid-template-columns: 1fr 1fr 1fr 1fr;
+.gridResponse{
+    grid-template-columns: 1fr 1fr;
 }
 .card{
     height: 20rem;
 }
+#textBox{
+    border: 2px solid rgb(234, 234, 234);
+    height: 100%;
+    border-radius: 12px;
+}
+#textBox div{
+    border: none;
+}
+#textBox div:nth-child(2){
+    /* min-height: 10rem; */
+}
 
-@media (max-width:520px){
+@media (max-width:1020px){
     .formBox{
         width: 95vw;
+        padding: 1rem ;
     }
-    .cardBox{
+}
+@media (max-width:720px){
+    .gridResponse{
         grid-template-columns: 1fr;
     }
+}
+.errorBox{
+    position: absolute;
+    top: -1.5rem;
+    left: 0%;
 }

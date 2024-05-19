@@ -7,27 +7,43 @@
   font-variation-settings:
     "width" 100;
 }
-body{
+
+body {
   background-color: rgb(255, 255, 255);
 }
 
+.fail {
+  color: rgb(216 34 34);
+  padding: 0.3rem 2rem;
+  background-color: rgb(255 0 0 / 33%);
+  border: 2px solid rgb(255 0 0 / 43%);
+  text-align: center;
+  border-radius: 7px;
+  font-weight: 600;
+}
+
 /* width and height */
-.width90{
+.width90 {
   width: 90%;
 }
-.height30{
+
+.height30 {
   height: 30rem;
 }
-.height90{
+
+.height90 {
   max-height: 90vh;
 }
+
 .imgBox {
   width: 45%;
   height: 40rem;
 }
-.sliderBox{
+
+.sliderBox {
   grid-template-columns: 2fr 1fr;
 }
+
 #swiperOne {
   margin-left: 0;
   margin-right: 0;
@@ -57,6 +73,11 @@ body{
   width: 45rem;
 }
 
+/* shadow */
+.grayBlurShadow {
+  -webkit-box-shadow: 0 1px 6px 0 rgba(0, 0, 0, 0.2);
+  box-shadow: 0 1px 6px 0 rgba(0, 0, 0, 0.2);
+}
 /* on Hover css */
 .hoverWhite {
   transition: all .8s;
@@ -84,13 +105,16 @@ body{
 .grayBorderBottom {
   border-bottom: 1px solid rgb(210, 210, 210);
 }
-.babyBlueBorderBottom{
+
+.babyBlueBorderBottom {
   border-bottom: 3px solid rgb(71, 124, 239);
 }
-.blackBorderBottom{
+
+.blackBorderBottom {
   border-bottom: 3px solid rgb(0, 0, 0);
 }
-.greenBorderBottom{
+
+.greenBorderBottom {
   border-bottom: 3px solid rgb(163, 215, 42);
 }
 
@@ -103,4 +127,24 @@ body{
 
 .blurBack {
   background-color: #00000088;
+}
+
+/* Animations */
+.popUp {
+  transition: all 1s;
+  animation: popup 1s ease-in-out;
+}
+
+@keyframes popup {
+  0% {
+    transform: scale(0.5);
+  }
+
+  50% {
+    transform: scale(1.02);
+  }
+
+  100% {
+    transform: scale(1);
+  }
 }
