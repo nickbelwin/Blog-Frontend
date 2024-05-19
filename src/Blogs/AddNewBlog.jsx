@@ -49,6 +49,37 @@ function AddNewBlog(props) {
     console.log(formData);
     return (
         <div className=' relative'>
+            <header className=' px-10 py-0 bg-black text-white flex items-center justify-between'>
+                    <div className='flex items-center gap-3 font-semibold navOne'>
+                        <nav className=' hoverWhite py-0.5 px-1 rounded-lg '>About Us</nav>
+                        <nav className='  hoverWhite py-0.5 px-1 rounded-lg '>Contact</nav>
+                    </div>
+                    <div className=' flex items-center gap-3'>
+                        <div className='  flex items-center gap-1 hoverWhite py-0.5 px-1 rounded-lg '>
+                            <img className=' w-6 navOne' src="/img/linkedin-png.png" alt="linkedin icon" />
+                            <h4 className=' text-sm font-semibold navOne'>LinkedIn</h4>
+                        </div>
+                        <div className='  flex items-center gap-1 py-0.5 px-1 rounded-lg navOne'>
+                            <h1 className=' text-3xl font-bold'>{todayDate?.date}</h1>
+                            <div className=' text-xs font-semibold'>
+                                <h4 className=' h-3'>{months[todayDate?.month]}</h4>
+                                <h4>{todayDate?.year}</h4>
+                            </div>
+                        </div>
+                    </div>
+                </header>
+                <header className=' width90 m-auto grayBorderBottom' >
+                    <div className=' m-auto py-4 w-fit flex items-center gap-2'>
+                        <img className=' logo w-16' src="/img/logo.webp" alt="" />
+                        <div className=' logoName'>
+                            <div className=' text-3xl font-extrabold '>
+                                <h1 className=' h-6 '>POSH &</h1>
+                                <h1 className=' '>GENDER</h1>
+                            </div>
+                            <p className=' text-xxs font-semibold'>UNITE FOR EQUALITY AND JUSTICE</p>
+                        </div>
+                    </div>
+                </header>
             {currentAddedBlog ?
                 <section className=' fixed min-h-screen  w-screen top-0 left-0 blurBack flex items-center justify-center'>
                     <div className='p-5 rounded-lg bg-white overflow-y-scroll  w-2/4 height90 my-5'>
