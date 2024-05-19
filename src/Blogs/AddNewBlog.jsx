@@ -16,20 +16,20 @@ function AddNewBlog(props) {
         image: "",
         description: "",
     });
-    const [allBlogs,setAllBlogs]=useState([]);
+    const [allBlogs, setAllBlogs] = useState([]);
     const [todayDate, setTodayDate] = useState(null);
     const [errorMsg, setErrorMsg] = useState(null);
-    const [description,setDescription]=useState("");
+    const [description, setDescription] = useState("");
 
-    useEffect(()=>{
-        if(description){
-            setFormData({...formData, description: description});
+    useEffect(() => {
+        if (description) {
+            setFormData({ ...formData, description: description });
         }
-    },[description])
+    }, [description])
     const handleCategory = (e) => {
         let data = e.target.value;
         console.log(formData?.category);
-        if ( Array.isArray(formData.category) && !formData?.category.includes(data)) {
+        if (Array.isArray(formData.category) && !formData?.category.includes(data)) {
             let cate = [...formData?.category, data];
             setFormData({ ...formData, category: cate });
         }
@@ -55,15 +55,15 @@ function AddNewBlog(props) {
             year: year,
         })
     }, []);
-    const getBlogdata=async()=>{
-        let res= await axios("http://localhost:4000/getBlogs");
+    const getBlogdata = async () => {
+        let res = await axios("http://localhost:4000/getBlogs");
         console.log(res.data.data);
         setAllBlogs(res.data.data);
 
     }
-    useEffect(()=>{
+    useEffect(() => {
         getBlogdata();
-    },[])
+    }, [])
     const [currentAddedBlog, setCurrentAddedBlog] = useState(false);
     const [loading, setLoading] = useState(false);
     gsap.registerPlugin(useGSAP);
@@ -127,6 +127,7 @@ function AddNewBlog(props) {
                     image: "",
                     description: "",
                 });
+                setDescription("");
                 document.getElementById("blog").reset();
             }
             else if (res.status === 400) {
@@ -184,20 +185,24 @@ function AddNewBlog(props) {
             </header>
             {currentAddedBlog ?
                 <section className=' fixed min-h-screen z-10 w-screen top-0 left-0 blurBack flex items-center justify-center'>
-                    <div className='p-5 rounded-lg bg-white overflow-y-scroll  w-2/4 height90 my-5'>
-                        <div className='  '>
-                            <button className=' bg-red-200 font-semibold text-red-600 px-4 py-1 rounded-lg' onClick={(e) => { setCurrentAddedBlog(false); }} >Close</button>
-                            <div className=' flex flex-col items-center justify-center gap-2'>
-                                <h1 className=' text-3xl font-bold'>{currentAddedBlog?.title}</h1>
-                                <div>
-                                    <h4 className=' text-gray-400 font-semibold'>{currentAddedBlog?.author} | {currentAddedBlog?.date}</h4>
-                                </div>
-                                <div className='w-96 '>
-                                    <img className=' w-full h-full object-cover' src={currentAddedBlog?.image} alt="" />
-                                </div>
-                                <div className=' text-left w-full'>
-                                    <h1 className=' text-xl font-semibold text-left w-full'>Description</h1>
-                                    <p className=' border-2 rounded-lg p-3'>{currentAddedBlog?.description}</p>
+                    <div className='p-5 bg-white height90 width80 m-auto overflow-hidden rounded-lg'>
+                        <div className=' rounded-lg  overflow-y-scroll height80 mb-10 '>
+                            <div className='  '>
+                                <button className=' bg-red-200 font-semibold text-red-600 px-4 py-1 rounded-lg' onClick={(e) => { setCurrentAddedBlog(false); }} >Close</button>
+                                <div className=' flex flex-col items-center justify-center gap-2'>
+                                    <h1 className=' text-3xl font-bold'>{currentAddedBlog?.title}</h1>
+                                    <div>
+                                        <h4 className=' text-gray-400 font-semibold'>{currentAddedBlog?.author} <span className=' px-2 text-blue-600'>|</span>{currentAddedBlog?.date}<span className=' px-2 text-blue-600'>|</span> {currentAddedBlog?.category.map((val,idx)=>{
+                                            return <span>{currentAddedBlog?.category.length-1===idx? `${val}`: `${val}, `}</span>
+                                        })}</h4>
+                                    </div>
+                                    <div className='imageBox'>
+                                        <img className=' w-full h-full object-cover' src={currentAddedBlog?.image} alt="" />
+                                    </div>
+                                    <div className=' text-left w-full'>
+                                        <h1 className=' text-xl font-semibold text-left w-full'>Description</h1>
+                                        <p className=' border-2 rounded-lg p-3'>{parse(`${currentAddedBlog?.description}`)}</p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -229,7 +234,7 @@ function AddNewBlog(props) {
                                 }
                             </select>
                             <div className=' flex items-center flex-wrap gap-2 w-full '>
-                                {Array.isArray(formData?.category) && formData?.category?.map((val,idx) => {
+                                {Array.isArray(formData?.category) && formData?.category?.map((val, idx) => {
                                     return <h1 className=' w-fit px-2 border-2 rounded-lg bg-blue-400 text-white font-semibold' key={val} >{val} <span className='hoverBlack px-1 rounded-lg cursor-pointer' id={idx} onClick={handleRemoveCtegory}>X</span></h1>
                                 })}
                             </div>
@@ -248,14 +253,14 @@ function AddNewBlog(props) {
                     <div className=' w-full'>
                         <label htmlFor="" className=' font-semibold ml-2'>Description</label>
                         <ReactQuill
-                        id='textBox'
-                        theme='snow'
-                        className=" mb-3 w-full"
-                        // defaultValue={"Blog Description*"}
-                        placeholder='Blog Description*'
-                        value={description}
-                        // onChange={(e) => { setFormData({ ...formData, description: e.target.value }); setErrorMsg(false); }}
-                        onChange={setDescription}
+                            id='textBox'
+                            theme='snow'
+                            className=" mb-3 w-full"
+                            // defaultValue={"Blog Description*"}
+                            placeholder='Blog Description*'
+                            value={description}
+                            // onChange={(e) => { setFormData({ ...formData, description: e.target.value }); setErrorMsg(false); }}
+                            onChange={setDescription}
                         />
                         {/* <textarea value={formData?.description} className=" border-2 rounded-xl mb-3 px-3 py-2 w-full" rows={5} placeholder="Blog Description*" onChange={(e) => { setFormData({ ...formData, description: e.target.value }); setErrorMsg(false); }}  ></textarea> */}
                     </div>

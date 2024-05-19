@@ -8,6 +8,9 @@
 .card{
     height: 20rem;
 }
+.imageBox{
+    width: 25rem;
+}
 #textBox{
     border: 2px solid rgb(234, 234, 234);
     height: 100%;
