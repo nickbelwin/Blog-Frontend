@@ -23,18 +23,28 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 function Home(props) {
     const navigate = useNavigate();
     const [allBlogs, setAllBlogs] = useState([]);
+    const [loading, setloading] = useState(false);
     const box1 = useRef(null);
     const box2 = useRef(null);
     const box3 = useRef(null);
     const slideleft = useRef(null);
+
+
     const getBlogdata = async () => {
-        let res = await axios(`${basePath}/getBlogs`);
-        console.log(res.data.data);
-        setAllBlogs(res.data.data);
+        try {
+            setloading(true);
+            let res = await axios(`${basePath}/getBlogs`);
+            console.log(res.data.data);
+            setAllBlogs(res.data.data);
+            setloading(false);
+        } catch (error) {
+            console.log(error);
+        }
     }
     useEffect(() => {
         getBlogdata();
     }, []);
+
 
     gsap.registerPlugin(useGSAP);
     gsap.registerPlugin(ScrollTrigger);
@@ -95,7 +105,7 @@ function Home(props) {
                 scroller: 'body'
             }
         });
-        gsap.fromTo(slideleft.current, { x: 100, opacity: 0, stagger: 0.2,}, {
+        gsap.fromTo(slideleft.current, { x: 100, opacity: 0, stagger: 0.2, }, {
             x: 0,
             opacity: 1,
             duration: 1,
@@ -115,116 +125,121 @@ function Home(props) {
                     <h1 className=' py-5 text-5xl font-extrabold w-3/4 m-auto text-center pop'>Enlighten
                         your thinking with a host of topics on which Rajashri meticulously presents her views
                         and opinions.</h1>
-                    <div className=' mb-10 grid sliderBox gap-2 bg-white rounded-lg p-5'>
-                        <Swiper
-                            spaceBetween={30}
-                            centeredSlides={true}
-                            autoplay={{
-                                delay: 2500,
-                                disableOnInteraction: false,
-                            }}
-                            pagination={{
-                                clickable: true,
-                            }}
-                            navigation={true}
-                            modules={[Autoplay, Pagination, Navigation]}
-                            id='swiperOne'
-                            className="mySwiper swipOne"
-                        >
-                            {
-                                Array.isArray(allBlogs) && allBlogs?.map((val) => {
-                                    return (
-                                        <>
-                                            {
-                                                val?.category.includes("Diversity") ?
-                                                    <div key={val._id} className=' relative h-fit'>
-                                                        <SwiperSlide className='  '>
-                                                            <div>
-                                                                <img className=' w-full h-full object-cover' src={val?.image} alt="" />
-                                                                <h1 onClick={(e) => { navigate(`/blog-details/${val?._id}`) }} className=' cursor-pointer hoverYellow px-3 blurBack text-left absolute z-30 w-full bottom-3 left-0 font-semibold text-2xl py-4 text-white'>{val?.title}</h1>
-                                                            </div>
-                                                        </SwiperSlide>
-                                                    </div> : null
-                                            }
-                                        </>
-                                    )
-                                })
-                            }
+                    {
+                        !loading ?
+                            <div className=' mb-10 grid sliderBox gap-2 bg-white rounded-lg p-5'>
+                                <Swiper
+                                    spaceBetween={30}
+                                    centeredSlides={true}
+                                    autoplay={{
+                                        delay: 2500,
+                                        disableOnInteraction: false,
+                                    }}
+                                    pagination={{
+                                        clickable: true,
+                                    }}
+                                    navigation={true}
+                                    modules={[Autoplay, Pagination, Navigation]}
+                                    id='swiperOne'
+                                    className="mySwiper swipOne"
+                                >
+                                    {
+                                        Array.isArray(allBlogs) && allBlogs?.map((val) => {
+                                            return (
+                                                <>
+                                                    {
+                                                        val?.category.includes("Diversity") ?
+                                                            <div key={val._id} className=' relative h-fit'>
+                                                                <SwiperSlide className='  '>
+                                                                    <div>
+                                                                        <img className=' w-full h-full object-cover' src={val?.image} alt="" />
+                                                                        <h1 onClick={(e) => { navigate(`/blog-details/${val?._id}`) }} className=' cursor-pointer hoverYellow px-3 blurBack text-left absolute z-30 w-full bottom-3 left-0 font-semibold text-2xl py-4 text-white'>{val?.title}</h1>
+                                                                    </div>
+                                                                </SwiperSlide>
+                                                            </div> : null
+                                                    }
+                                                </>
+                                            )
+                                        })
+                                    }
 
-                        </Swiper>
-                        <div className=' grid grid-cols-1 gap-2'>
-                            <Swiper
-                                spaceBetween={30}
-                                centeredSlides={true}
-                                autoplay={{
-                                    delay: 2800,
-                                    disableOnInteraction: false,
-                                }}
-                                pagination={{
-                                    clickable: true,
-                                }}
-                                navigation={true}
-                                modules={[Autoplay, Pagination, Navigation]}
-                                className="mySwiper swipTwo slideDown"
-                            >
-                                {
-                                    Array.isArray(allBlogs) && allBlogs?.map((val) => {
-                                        return (
-                                            <>
-                                                {
-                                                    val?.category.includes("Workplace") ?
-                                                        <div className=' relative h-fit'>
-                                                            <SwiperSlide className='  '>
-                                                            <div >
-                                                                    <img className=' w-full h-full object-cover' src={val?.image} alt="" />
-                                                                    <h1 onClick={(e) => { navigate(`/blog-details/${val?._id}`) }} className='w-full px-3 py-2 hoverYellow blurBack text-left absolute z-30 bottom-3 left-0 font-semibold text-lg text-white'>{val.title}</h1>
-                                                                </div>
-                                                            </SwiperSlide>
-                                                        </div> : null
-                                                }
-                                            </>
-                                        )
-                                    })
-                                }
+                                </Swiper>
+                                <div className=' grid grid-cols-1 gap-2'>
+                                    <Swiper
+                                        spaceBetween={30}
+                                        centeredSlides={true}
+                                        autoplay={{
+                                            delay: 2800,
+                                            disableOnInteraction: false,
+                                        }}
+                                        pagination={{
+                                            clickable: true,
+                                        }}
+                                        navigation={true}
+                                        modules={[Autoplay, Pagination, Navigation]}
+                                        className="mySwiper swipTwo slideDown"
+                                    >
+                                        {
+                                            Array.isArray(allBlogs) && allBlogs?.map((val) => {
+                                                return (
+                                                    <>
+                                                        {
+                                                            val?.category.includes("Workplace") ?
+                                                                <div className=' relative h-fit'>
+                                                                    <SwiperSlide className='  '>
+                                                                        <div >
+                                                                            <img className=' w-full h-full object-cover' src={val?.image} alt="" />
+                                                                            <h1 onClick={(e) => { navigate(`/blog-details/${val?._id}`) }} className='w-full px-3 py-2 hoverYellow blurBack text-left absolute z-30 bottom-3 left-0 font-semibold text-lg text-white'>{val.title}</h1>
+                                                                        </div>
+                                                                    </SwiperSlide>
+                                                                </div> : null
+                                                        }
+                                                    </>
+                                                )
+                                            })
+                                        }
 
-                            </Swiper>
-                            <Swiper
-                                spaceBetween={30}
-                                centeredSlides={true}
-                                autoplay={{
-                                    delay: 2000,
-                                    disableOnInteraction: false,
-                                }}
-                                pagination={{
-                                    clickable: true,
-                                }}
-                                navigation={true}
-                                modules={[Autoplay, Pagination, Navigation]}
-                                className="mySwiper swipTwo slideUp"
-                            >
-                                {
-                                    Array.isArray(allBlogs) && allBlogs?.map((val) => {
-                                        return (
-                                            <>
-                                                {
-                                                    val?.category.includes("Building Relation") ?
-                                                        <div className=' relative h-fit'>
-                                                            <SwiperSlide className='  '>
-                                                            <div >
-                                                                    <img className=' w-full h-full object-cover' src={val?.image} alt="" />
-                                                                    <h1 onClick={(e) => { navigate(`/blog-details/${val?._id}`) }} className=' w-full px-3 py-2 blurBack hoverYellow text-left absolute z-30 bottom-3 left-0 font-semibold text-lg text-white'>{val.title}</h1>
-                                                                </div>
-                                                            </SwiperSlide>
-                                                        </div> : null
-                                                }
-                                            </>
-                                        )
-                                    })
-                                }
+                                    </Swiper>
+                                    <Swiper
+                                        spaceBetween={30}
+                                        centeredSlides={true}
+                                        autoplay={{
+                                            delay: 2000,
+                                            disableOnInteraction: false,
+                                        }}
+                                        pagination={{
+                                            clickable: true,
+                                        }}
+                                        navigation={true}
+                                        modules={[Autoplay, Pagination, Navigation]}
+                                        className="mySwiper swipTwo slideUp"
+                                    >
+                                        {
+                                            Array.isArray(allBlogs) && allBlogs?.map((val) => {
+                                                return (
+                                                    <>
+                                                        {
+                                                            val?.category.includes("Building Relation") ?
+                                                                <div className=' relative h-fit'>
+                                                                    <SwiperSlide className='  '>
+                                                                        <div >
+                                                                            <img className=' w-full h-full object-cover' src={val?.image} alt="" />
+                                                                            <h1 onClick={(e) => { navigate(`/blog-details/${val?._id}`) }} className=' w-full px-3 py-2 blurBack hoverYellow text-left absolute z-30 bottom-3 left-0 font-semibold text-lg text-white'>{val.title}</h1>
+                                                                        </div>
+                                                                    </SwiperSlide>
+                                                                </div> : null
+                                                        }
+                                                    </>
+                                                )
+                                            })
+                                        }
 
-                            </Swiper>
-                        </div>
-                    </div>
+                                    </Swiper>
+                                </div>
+                            </div> : <div className=' w-full h-60'>
+                                <img className=' m-auto w-44' src="/img/loading2.gif" alt="" />
+                            </div>
+                    }
                 </section>
                 <section id='page2' className=' mb-10 flex flex-col items-center justify-center gap-10'>
                     <div className=' '>
@@ -252,7 +267,7 @@ function Home(props) {
                                 </ul>
                             </nav>
                             <div className=' grid grid-cols-2 gap-4 ' >
-                                
+
                                 <div onClick={(e) => { navigate(`/blog-details/${allBlogs[0]?._id}`) }} className=' bg-white rounded-lg p-4 hoverBlur'>
                                     <div className=' h-80 w-full'>
                                         <img className=' w-full h-full object-cover' src={allBlogs[0]?.image} alt="" />
