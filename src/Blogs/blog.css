@@ -11,6 +11,18 @@
 .imageBox{
     width: 25rem;
 }
+.blogDetailsBox{
+    max-width: 70rem;
+}
+.descriptionBox{
+    max-width: 50rem;
+    margin: auto;
+}
+.detailsImageBox{
+    height: 30rem;
+    width: 60rem;
+    margin: auto;
+}
 #textBox{
     border: 2px solid rgb(234, 234, 234);
     height: 100%;

@@ -5,6 +5,7 @@ import './App.css';
 import AddNewBlog from './Blogs/AddNewBlog';
 import Header from './Header/Header';
 import Home from './Home/Home'
+import BlogDetails from './Blogs/BlogDetails';
 
 function App() {
   return (
@@ -12,7 +13,7 @@ function App() {
       <Routes>
         <Route path='/' element={<Header />} >
           <Route index element={<Home/>} />
-          
+          <Route path='/blog-details/:id' element={<BlogDetails/>} />
         </Route>
         <Route path='/add-new-blog' element={<AddNewBlog />} />
       </Routes>

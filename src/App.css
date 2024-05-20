@@ -44,6 +44,16 @@ body {
   background: #b30000; 
 }
 
+::-moz-selection { /* Code for Firefox */
+  color: rgb(255, 255, 255);
+  background: #FFD800;
+}
+
+::selection {
+  color: rgb(255, 255, 255);
+  background: #FFD800;
+}
+
 /* width and height */
 .width90 {
   width: 90%;
@@ -124,6 +134,23 @@ body {
 .hoverBlack:hover {
   background-color: black;
   color: white;
+  transition: all .5s;
+}
+.hoverBlur{
+  transition: all .8s;
+  cursor: pointer;
+}
+.hoverBlur:hover{
+  -webkit-box-shadow: 0 1px 6px 0 rgba(0, 0, 0, 0.2);
+  box-shadow: 0 1px 6px 0 rgba(0, 0, 0, 0.2);
+}
+
+.hoverYellow{
+  transition: all .8s;
+  cursor: pointer;
+}
+.hoverYellow:hover{
+  color: #FFD800;
   transition: all .5s;
 }
 

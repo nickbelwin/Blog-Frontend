@@ -5,7 +5,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
-import { navList, testList } from '../Constants/constants'
+import { basePath, navList, testList } from '../Constants/constants'
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import "./home.css";
@@ -17,23 +17,27 @@ import { Link, useNavigate } from 'react-router-dom';
 import Footer from '../Footer/Footer';
 import axios from "axios";
 import parse from 'html-react-parser';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 
 function Home(props) {
     const navigate = useNavigate();
     const [allBlogs, setAllBlogs] = useState([]);
-    gsap.registerPlugin(useGSAP);
-
+    const box1 = useRef(null);
+    const box2 = useRef(null);
+    const box3 = useRef(null);
+    const slideleft = useRef(null);
     const getBlogdata = async () => {
-        let res = await axios("http://localhost:4000/getBlogs");
+        let res = await axios(`${basePath}/getBlogs`);
         console.log(res.data.data);
         setAllBlogs(res.data.data);
-
     }
     useEffect(() => {
         getBlogdata();
-    }, [])
+    }, []);
 
+    gsap.registerPlugin(useGSAP);
+    gsap.registerPlugin(ScrollTrigger);
 
     useGSAP(() => {
         gsap.from('.swipOne', {
@@ -61,58 +65,62 @@ function Home(props) {
             duration: 1,
             delay: 0.2
         });
+        gsap.fromTo(box1.current, { y: 100, opacity: 0, }, {
+            y: 0,
+            opacity: 1,
+            duration: 1,
+            delay: 0.3,
+            scrollTrigger: {
+                trigger: box1.current,
+                scroller: 'body'
+            }
+        });
+        gsap.fromTo(box2.current, { y: 100, opacity: 0, }, {
+            y: 0,
+            opacity: 1,
+            duration: 1,
+            delay: 0.3,
+            scrollTrigger: {
+                trigger: box2.current,
+                scroller: 'body'
+            }
+        });
+        gsap.fromTo(box3.current, { y: 100, opacity: 0, }, {
+            y: 0,
+            opacity: 1,
+            duration: 1,
+            delay: 0.3,
+            scrollTrigger: {
+                trigger: box3.current,
+                scroller: 'body'
+            }
+        });
+        gsap.fromTo(slideleft.current, { x: 100, opacity: 0, stagger: 0.2,}, {
+            x: 0,
+            opacity: 1,
+            duration: 1,
+            delay: 0.3,
+            stagger: 0.2,
+            scrollTrigger: {
+                trigger: slideleft.current,
+                scroller: 'body'
+            }
+        });
     }
     );
     return (
         <section>
             <div className=' width90  m-auto'>
-                <h1 className=' py-5 text-5xl font-extrabold w-3/4 m-auto text-center pop'>Enlighten
-                    your thinking with a host of topics on which Rajashri meticulously presents her views
-                    and opinions.</h1>
-                <div className=' mb-10 grid sliderBox gap-2 bg-white rounded-lg p-5'>
-                    <Swiper
-                        spaceBetween={30}
-                        centeredSlides={true}
-                        autoplay={{
-                            delay: 2500,
-                            disableOnInteraction: false,
-                        }}
-                        pagination={{
-                            clickable: true,
-                        }}
-                        navigation={true}
-                        modules={[Autoplay, Pagination, Navigation]}
-                        id='swiperOne'
-                        className="mySwiper swipOne"
-                    >
-                        {
-                            Array.isArray(allBlogs) && allBlogs?.map((val) => {
-                                console.log(val?.category.includes("Diversity"));
-                                return (
-                                    <>
-                                        {
-                                            val?.category.includes("Diversity") ?
-                                                <div key={val._id} className=' relative h-fit'>
-                                                    <SwiperSlide className='  '>
-                                                        <Link target='_blank' to={``}>
-                                                            <img className=' w-full h-full object-cover' src={val?.image} alt="" />
-                                                            <h1 className=' px-3 blurBack text-left absolute z-30 w-full bottom-3 left-0 font-semibold text-2xl py-4 text-white'>{val?.title}</h1>
-                                                        </Link>
-                                                    </SwiperSlide>
-                                                </div> : null
-                                        }
-                                    </>
-                                )
-                            })
-                        }
-
-                    </Swiper>
-                    <div className=' grid grid-cols-1 gap-2'>
+                <section id='page1'>
+                    <h1 className=' py-5 text-5xl font-extrabold w-3/4 m-auto text-center pop'>Enlighten
+                        your thinking with a host of topics on which Rajashri meticulously presents her views
+                        and opinions.</h1>
+                    <div className=' mb-10 grid sliderBox gap-2 bg-white rounded-lg p-5'>
                         <Swiper
                             spaceBetween={30}
                             centeredSlides={true}
                             autoplay={{
-                                delay: 2800,
+                                delay: 2500,
                                 disableOnInteraction: false,
                             }}
                             pagination={{
@@ -120,63 +128,107 @@ function Home(props) {
                             }}
                             navigation={true}
                             modules={[Autoplay, Pagination, Navigation]}
-                            className="mySwiper swipTwo slideDown"
+                            id='swiperOne'
+                            className="mySwiper swipOne"
                         >
                             {
-                                testList?.map((val) => {
+                                Array.isArray(allBlogs) && allBlogs?.map((val) => {
                                     return (
-                                        <div className=' relative h-fit'>
-                                            <SwiperSlide className='  '>
-                                                <Link target='_blank' to={`https://i.pinimg.com/564x/26/b3/0b/26b30b7baf1204e6f093fda17819e5d6.jpg`}>
-
-                                                    <img className=' object-top' src={val?.img} alt="" />
-                                                    <h1 className=' px-3 blurBack text-left absolute z-30 bottom-3 left-0 font-semibold text-lg text-white'>Lorem ipsum dolor sit amet consectetur adipisicing elit.</h1>
-
-                                                </Link>
-                                            </SwiperSlide>
-                                        </div>
+                                        <>
+                                            {
+                                                val?.category.includes("Diversity") ?
+                                                    <div key={val._id} className=' relative h-fit'>
+                                                        <SwiperSlide className='  '>
+                                                            <div>
+                                                                <img className=' w-full h-full object-cover' src={val?.image} alt="" />
+                                                                <h1 onClick={(e) => { navigate(`/blog-details/${val?._id}`) }} className=' cursor-pointer hoverYellow px-3 blurBack text-left absolute z-30 w-full bottom-3 left-0 font-semibold text-2xl py-4 text-white'>{val?.title}</h1>
+                                                            </div>
+                                                        </SwiperSlide>
+                                                    </div> : null
+                                            }
+                                        </>
                                     )
                                 })
                             }
 
                         </Swiper>
-                        <Swiper
-                            spaceBetween={30}
-                            centeredSlides={true}
-                            autoplay={{
-                                delay: 2000,
-                                disableOnInteraction: false,
-                            }}
-                            pagination={{
-                                clickable: true,
-                            }}
-                            navigation={true}
-                            modules={[Autoplay, Pagination, Navigation]}
-                            className="mySwiper swipTwo slideUp"
-                        >
-                            {
-                                testList?.map((val) => {
-                                    return (
-                                        <div className=' relative h-fit'>
-                                            <SwiperSlide className='  '>
-                                                <Link target='_blank' to={`https://i.pinimg.com/564x/26/b3/0b/26b30b7baf1204e6f093fda17819e5d6.jpg`}>
+                        <div className=' grid grid-cols-1 gap-2'>
+                            <Swiper
+                                spaceBetween={30}
+                                centeredSlides={true}
+                                autoplay={{
+                                    delay: 2800,
+                                    disableOnInteraction: false,
+                                }}
+                                pagination={{
+                                    clickable: true,
+                                }}
+                                navigation={true}
+                                modules={[Autoplay, Pagination, Navigation]}
+                                className="mySwiper swipTwo slideDown"
+                            >
+                                {
+                                    Array.isArray(allBlogs) && allBlogs?.map((val) => {
+                                        return (
+                                            <>
+                                                {
+                                                    val?.category.includes("Workplace") ?
+                                                        <div className=' relative h-fit'>
+                                                            <SwiperSlide className='  '>
+                                                            <div >
+                                                                    <img className=' w-full h-full object-cover' src={val?.image} alt="" />
+                                                                    <h1 onClick={(e) => { navigate(`/blog-details/${val?._id}`) }} className='w-full px-3 py-2 hoverYellow blurBack text-left absolute z-30 bottom-3 left-0 font-semibold text-lg text-white'>{val.title}</h1>
+                                                                </div>
+                                                            </SwiperSlide>
+                                                        </div> : null
+                                                }
+                                            </>
+                                        )
+                                    })
+                                }
 
-                                                    <img className=' object-top' src={val?.img} alt="" />
-                                                    <h1 className=' px-3 blurBack text-left absolute z-30 bottom-3 left-0 font-semibold text-lg text-white'>Lorem ipsum dolor sit amet consectetur adipisicing elit.</h1>
+                            </Swiper>
+                            <Swiper
+                                spaceBetween={30}
+                                centeredSlides={true}
+                                autoplay={{
+                                    delay: 2000,
+                                    disableOnInteraction: false,
+                                }}
+                                pagination={{
+                                    clickable: true,
+                                }}
+                                navigation={true}
+                                modules={[Autoplay, Pagination, Navigation]}
+                                className="mySwiper swipTwo slideUp"
+                            >
+                                {
+                                    Array.isArray(allBlogs) && allBlogs?.map((val) => {
+                                        return (
+                                            <>
+                                                {
+                                                    val?.category.includes("Building Relation") ?
+                                                        <div className=' relative h-fit'>
+                                                            <SwiperSlide className='  '>
+                                                            <div >
+                                                                    <img className=' w-full h-full object-cover' src={val?.image} alt="" />
+                                                                    <h1 onClick={(e) => { navigate(`/blog-details/${val?._id}`) }} className=' w-full px-3 py-2 blurBack hoverYellow text-left absolute z-30 bottom-3 left-0 font-semibold text-lg text-white'>{val.title}</h1>
+                                                                </div>
+                                                            </SwiperSlide>
+                                                        </div> : null
+                                                }
+                                            </>
+                                        )
+                                    })
+                                }
 
-                                                </Link>
-                                            </SwiperSlide>
-                                        </div>
-                                    )
-                                })
-                            }
-
-                        </Swiper>
+                            </Swiper>
+                        </div>
                     </div>
-                </div>
-                <section className=' mb-10 flex flex-col items-center justify-center gap-10'>
-                    <div className=''>
-                        <div>
+                </section>
+                <section id='page2' className=' mb-10 flex flex-col items-center justify-center gap-10'>
+                    <div className=' '>
+                        <div ref={box1}>
                             <nav className=' flex items-end justify-between babyBlueBorderBottom mb-3 text-lg '>
                                 <h1 className=' whitespace-nowrap w-fit font-semibold bg-blue-600 text-white py-0.5 px-1 mr-10 '>
                                     Don't Miss
@@ -199,26 +251,27 @@ function Home(props) {
                                     }
                                 </ul>
                             </nav>
-                            <div className=' grid grid-cols-2 gap-4'>
-                                <div className=' bg-white rounded-lg p-4'>
+                            <div className=' grid grid-cols-2 gap-4 ' >
+                                
+                                <div onClick={(e) => { navigate(`/blog-details/${allBlogs[0]?._id}`) }} className=' bg-white rounded-lg p-4 hoverBlur'>
                                     <div className=' h-80 w-full'>
-                                        <img className=' w-full h-full object-cover' src={testList[0].img} alt="" />
+                                        <img className=' w-full h-full object-cover' src={allBlogs[0]?.image} alt="" />
                                     </div>
-                                    <div>
-                                        <h1 className=' text-xl font-bold'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni, nobis?</h1>
-                                        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Distinctio iure, laborum temporibus quod natus quas tempora, dignissimos dolorum deserunt dicta facere illum aliquid. Reiciendis laboriosam consectetur quis quam facilis laborum.</p>
+                                    <div className=' h-36 overflow-hidden'>
+                                        <h1 className=' text-xl font-bold'>{allBlogs[0]?.title}</h1>
+                                        <p>{parse(`${allBlogs[0]?.description}`)}</p>
                                     </div>
                                 </div>
-                                <div className=' flex flex-col gap-2 height30 overflow-y-scroll'>
+                                <div className=' flex flex-col gap-2 height30 overflow-y-scroll overflow-x-hidden m-2'>
                                     {
 
-                                        testList?.map((val) => {
+                                        Array.isArray(allBlogs) && allBlogs?.map((val) => {
                                             return (
-                                                <div className=' flex flex-row gap-2 bg-white rounded-lg p-2 '>
+                                                <div ref={slideleft} onClick={(e) => { navigate(`/blog-details/${val?._id}`) }} className='hoverBlur flex flex-row gap-2 bg-white rounded-lg p-2 '>
                                                     <div className=' w-28 h-24'>
-                                                        <img className=' w-full h-full object-cover' src={val?.img} alt="" />
+                                                        <img className=' w-full h-full object-cover' src={val?.image} alt="" />
                                                     </div>
-                                                    <p className=' text-lg font-bold'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure, dolore?</p>
+                                                    <p className=' text-lg font-bold'>{val?.title}</p>
                                                 </div>
                                             )
                                         })
@@ -234,50 +287,59 @@ function Home(props) {
                             </div>
                         </div> */}
                     </div>
-                    <div>
+                    <div ref={box2} className=' page3'>
                         <nav className=' flex items-end justify-between greenBorderBottom  mb-3 text-lg '>
                             <h1 className=' whitespace-nowrap w-fit font-semibold bg-green-600 text-white py-0.5 px-3 mr-10 '>
                                 Latest
                             </h1>
                         </nav>
-                        <div className=' grid grid-cols-4'>
+                        <div className=' grid grid-cols-4 gap-2'>
                             {
-                                testList?.map((val) => {
+                                Array.isArray(allBlogs) && allBlogs?.map((val, idx) => {
                                     return (
-                                        <div className=' bg-white rounded-lg p-4'>
-                                            <div className=' h-72 w-full'>
-                                                <img className=' w-full h-full object-cover' src={val.img} alt="" />
-                                            </div>
-                                            <div>
-                                                <h1 className=' text-xl font-bold'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni, nobis?</h1>
-                                                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Distinctio iure, laborum temporibus quod natus quas tempora, dignissimos dolorum deserunt dicta facere illum aliquid. Reiciendis laboriosam consectetur quis quam facilis laborum.</p>
-                                            </div>
-                                        </div>
+                                        <>
+                                            {
+                                                idx <= 7 ?
+                                                    <div onClick={(e) => { navigate(`/blog-details/${val?._id}`) }} className='hoverBlur bg-white rounded-lg p-4 overflow-hidden'>
+                                                        <div className=' h-72 w-full'>
+                                                            <img className=' w-full h-full object-cover' src={val?.image} alt="" />
+                                                        </div>
+                                                        <div>
+                                                            <h1 className=' text-2xl font-bold textEllipsis py-2'>{val?.title}</h1>
+                                                            <p className=' overflow-hidden h-36'>{parse(`${val?.description}`)}</p>
+                                                        </div>
+                                                    </div> : null
+                                            }
+                                        </>
                                     )
                                 })
                             }
                         </div>
                     </div>
-                    <div>
+                    <div ref={box3} className=' page4'>
                         <nav className=' flex items-end justify-between babyBlueBorderBottom mb-3 text-lg '>
                             <h1 className=' whitespace-nowrap w-fit font-semibold bg-blue-600 text-white py-0.5 px-1 mr-10 '>
-
-                                Buidling Relations
+                                Diversity
                             </h1>
                         </nav>
-                        <div className=' grid grid-cols-4'>
+                        <div className=' grid grid-cols-4 gap-2'>
                             {
-                                testList?.map((val) => {
+                                Array.isArray(allBlogs) && allBlogs?.map((val, idx) => {
                                     return (
-                                        <div className=' bg-white rounded-lg p-4'>
-                                            <div className=' h-72 w-full'>
-                                                <img className=' w-full h-full object-cover' src={val.img} alt="" />
-                                            </div>
-                                            <div>
-                                                <h1 className=' text-xl font-bold'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni, nobis?</h1>
-                                                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Distinctio iure, laborum temporibus quod natus quas tempora, dignissimos dolorum deserunt dicta facere illum aliquid. Reiciendis laboriosam consectetur quis quam facilis laborum.</p>
-                                            </div>
-                                        </div>
+                                        <>
+                                            {
+                                                idx <= 7 && val?.category?.includes("Diversity") ?
+                                                    <div onClick={(e) => { navigate(`/blog-details/${val?._id}`) }} className='hoverBlur bg-white rounded-lg p-4 overflow-hidden'>
+                                                        <div className=' h-72 w-full'>
+                                                            <img className=' w-full h-full object-cover' src={val?.image} alt="" />
+                                                        </div>
+                                                        <div>
+                                                            <h1 className=' text-2xl font-bold textEllipsis py-2'>{val?.title}</h1>
+                                                            <p className=' overflow-hidden h-36'>{parse(`${val?.description}`)}</p>
+                                                        </div>
+                                                    </div> : null
+                                            }
+                                        </>
                                     )
                                 })
                             }

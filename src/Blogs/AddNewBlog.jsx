@@ -56,7 +56,7 @@ function AddNewBlog(props) {
         })
     }, []);
     const getBlogdata = async () => {
-        let res = await axios("http://localhost:4000/getBlogs");
+        let res = await axios(`${basePath}/getBlogs`);
         console.log(res.data.data);
         setAllBlogs(res.data.data);
 

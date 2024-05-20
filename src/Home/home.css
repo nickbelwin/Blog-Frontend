@@ -1,3 +1,11 @@
 .boxOne{
     grid-template-columns: 3fr 1fr;
 }
+/* #page1{
+    height: 100vh;
+} */
+.textEllipsis { 
+    white-space: nowrap; 
+    overflow: hidden; 
+    text-overflow: ellipsis; 
+} 
