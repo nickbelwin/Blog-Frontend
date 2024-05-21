@@ -5,7 +5,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
-import { basePath, navList, testList } from '../Constants/constants'
+import { basePath, categoryList, navList, testList } from '../Constants/constants'
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import "./home.css";
@@ -253,7 +253,7 @@ function Home(props) {
                                         <li className=' whitespace-nowrap  hoverBlack py-0.5 px-4 rounded-lg'>All </li>
                                     </Link>
                                     {
-                                        navList?.map((val, idx) => {
+                                        categoryList?.map((val, idx) => {
                                             return (
                                                 <>
                                                     {idx <= 6 ?

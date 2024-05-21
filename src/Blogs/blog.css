@@ -31,9 +31,6 @@
 #textBox div{
     border: none;
 }
-#textBox div:nth-child(2){
-    /* min-height: 10rem; */
-}
 
 @media (max-width:1020px){
     .formBox{

@@ -19,16 +19,6 @@ export const categoryList=[
     {path:"", name:"Building Relation"},
     { path: "", name: "Workplace" },
     { path: "", name: "Diversity" },
-    { path: "", name: "Legal updates" },
-    { path: "", name: "Equity" },
-    { path: "", name: "Case studies" },
-    { path: "", name: "Expert talk" },
-    { path: "", name: "Industry update" },
-    { path: "", name: "sustainable development" },
-    { path: "", name: "Mental health" },
-    { path: "", name: "Women leadership" },
-    { path: "", name: "Dialogue" },
-    { path: "", name: "Stories about you" },
 ]
 export const monthFull = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 export const  months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'];

@@ -48,7 +48,12 @@ function BlogDetails(props) {
                 </nav>
                 <div className=' py-10'>
                     <h1 className=' text-center text-5xl font-bold'>{blog?.title}</h1>
-                    <h3 className=' text-center py-5 text-sm font-semibold text-gray-600'><span>{blog?.author}</span> <span className=' text-blue-600 px-1 font-bold'>/</span> <span>{postDate}</span> <span className=' text-blue-600 px-1 font-bold'>/</span> <span>{blog?.category?.map((val, idx) => { return <span>{blog?.category?.length - 1 === idx ? `${val}` : `${val}, `}</span> })}</span></h3>
+                    <h3 className=' text-center py-5 text-sm font-semibold text-gray-600'>
+                        <span>{blog?.author}</span> 
+                        <span className=' text-blue-600 px-1 font-bold'>/</span>
+                        <span>{postDate}</span> 
+                        <span className=' text-blue-600 px-1 font-bold'>/</span> 
+                        <span>{blog?.category?.map((val, idx) => { return <span onClick={()=>{naviagte(`/blogs-category/${val}`)}} className='hoverYellow'>{blog?.category?.length - 1 === idx ? `${val}` : `${val}, `}</span> })}</span></h3>
                 </div>
                 <div className=' detailsImageBox py-5'>
                     <img className=' w-full h-full object-cover' src={blog?.image} alt={blog?.title} />
