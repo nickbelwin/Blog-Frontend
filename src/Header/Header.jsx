@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import "./header.css";
-import { Link, Outlet } from 'react-router-dom';
+import { Link, Outlet, useNavigate } from 'react-router-dom';
 import { months, navList } from '../Constants/constants';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 
 function Header(props) {
     const [todayDate,setTodayDate]=useState(null);
+    const navigate=useNavigate();
     useEffect(()=>{
         let today=new Date();
         let date= today.getDate();
@@ -102,10 +103,10 @@ function Header(props) {
                             {
                                 navList?.map((val, idx) => {
                                     return (
-                                        <Link key={val?.name} className=' flex items-center nav'>
+                                        <div onClick={() => { navigate(`/blogs-category/${val?.name}`) }} key={val?.name} className=' flex items-center nav'>
                                             <li className=' whitespace-nowrap  hoverBlack py-0.5 px-1 rounded-lg'>{val?.name} </li>
                                             <span className=' px-1 text-blue-600'>{navList?.length - 1 != idx ? "|" : null}</span>
-                                        </Link>
+                                        </div >
                                     )
                                 })
                             }

@@ -37,6 +37,7 @@ function Home(props) {
             console.log(res.data.data);
             setAllBlogs(res.data.data);
             setloading(false);
+            
         } catch (error) {
             console.log(error);
         }
@@ -241,126 +242,128 @@ function Home(props) {
                             </div>
                     }
                 </section>
-                <section id='page2' className=' mb-10 flex flex-col items-center justify-center gap-10'>
-                    <div className=' '>
-                        <div ref={box1}>
+                {!loading ?
+                    <section id='page2' className=' mb-10 flex flex-col items-center justify-center gap-10'>
+                        <div className=' '>
+                            <div ref={box1}>
+                                <nav className=' flex items-end justify-between babyBlueBorderBottom mb-3 text-lg '>
+                                    <h1 className=' whitespace-nowrap w-fit font-semibold bg-blue-600 text-white py-0.5 px-1 mr-10 '>
+                                        Don't Miss
+                                    </h1>
+                                    <ul className=' flex  w-full   text-lg font-semibold   '>
+                                        <Link className=' flex items-center nav'>
+                                            <li className=' whitespace-nowrap  hoverBlack py-0.5 px-4 rounded-lg'>All </li>
+                                        </Link>
+                                        {
+                                            categoryList?.map((val, idx) => {
+                                                return (
+                                                    <>
+                                                        {idx <= 6 ?
+                                                            <div key={val?.name} className=' flex items-center nav'>
+                                                                <li onClick={() => { navigate(`/blogs-category/${val?.name}`) }} className=' whitespace-nowrap  hoverBlack py-0.5 px-4 rounded-lg'>{val?.name} </li>
+                                                            </div> : null}
+                                                    </>
+                                                )
+                                            })
+                                        }
+                                    </ul>
+                                </nav>
+                                <div className=' grid grid-cols-2 gap-4 ' >
+
+                                    <div onClick={(e) => { navigate(`/blog-details/${allBlogs[0]?._id}`) }} className=' bg-white rounded-lg p-4 hoverBlur'>
+                                        <div className=' h-80 w-full'>
+                                            <img className=' w-full h-full object-cover' src={allBlogs[0]?.image} alt="" />
+                                        </div>
+                                        <div className=' h-36 overflow-hidden'>
+                                            <h1 className=' text-xl font-bold'>{allBlogs[0]?.title}</h1>
+                                            <p>{parse(`${allBlogs[0]?.description}`)}</p>
+                                        </div>
+                                    </div>
+                                    <div className=' flex flex-col gap-2 height30 overflow-y-scroll overflow-x-hidden m-2'>
+                                        {
+
+                                            Array.isArray(allBlogs) && allBlogs?.map((val) => {
+                                                return (
+                                                    <div ref={slideleft} onClick={(e) => { navigate(`/blog-details/${val?._id}`) }} className='hoverBlur flex flex-row gap-2 bg-white rounded-lg p-2 '>
+                                                        <div className=' w-28 h-24'>
+                                                            <img className=' w-full h-full object-cover' src={val?.image} alt="" />
+                                                        </div>
+                                                        <p className=' text-lg font-bold'>{val?.title}</p>
+                                                    </div>
+                                                )
+                                            })
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                            {/* <div>
+                        <div className=' blackBorderBottom'>
+                            <h1 className=' whitespace-nowrap w-fit font-semibold bg-black text-white py-0.5 px-1 mr-10 '>
+                                Stay Connected
+                            </h1>
+                        </div>
+                    </div> */}
+                        </div>
+                        <div ref={box2} className=' page3'>
+                            <nav className=' flex items-end justify-between greenBorderBottom  mb-3 text-lg '>
+                                <h1 className=' whitespace-nowrap w-fit font-semibold bg-green-600 text-white py-0.5 px-3 mr-10 '>
+                                    Latest
+                                </h1>
+                            </nav>
+                            <div className=' grid grid-cols-4 gap-2'>
+                                {
+                                    Array.isArray(allBlogs) && allBlogs?.map((val, idx) => {
+                                        return (
+                                            <>
+                                                {
+                                                    idx <= 7 ?
+                                                        <div onClick={(e) => { navigate(`/blog-details/${val?._id}`) }} className='hoverBlur bg-white rounded-lg p-4 overflow-hidden'>
+                                                            <div className=' h-72 w-full'>
+                                                                <img className=' w-full h-full object-cover' src={val?.image} alt="" />
+                                                            </div>
+                                                            <div>
+                                                                <h1 className=' text-2xl font-bold textEllipsis py-2'>{val?.title}</h1>
+                                                                <p className=' overflow-hidden h-36'>{parse(`${val?.description}`)}</p>
+                                                            </div>
+                                                        </div> : null
+                                                }
+                                            </>
+                                        )
+                                    })
+                                }
+                            </div>
+                        </div>
+                        <div ref={box3} className=' page4'>
                             <nav className=' flex items-end justify-between babyBlueBorderBottom mb-3 text-lg '>
                                 <h1 className=' whitespace-nowrap w-fit font-semibold bg-blue-600 text-white py-0.5 px-1 mr-10 '>
-                                    Don't Miss
+                                    Diversity
                                 </h1>
-                                <ul className=' flex  w-full   text-lg font-semibold   '>
-                                    <Link className=' flex items-center nav'>
-                                        <li className=' whitespace-nowrap  hoverBlack py-0.5 px-4 rounded-lg'>All </li>
-                                    </Link>
-                                    {
-                                        categoryList?.map((val, idx) => {
-                                            return (
-                                                <>
-                                                    {idx <= 6 ?
-                                                        <Link className=' flex items-center nav'>
-                                                            <li className=' whitespace-nowrap  hoverBlack py-0.5 px-4 rounded-lg'>{val?.name} </li>
-                                                        </Link> : null}
-                                                </>
-                                            )
-                                        })
-                                    }
-                                </ul>
                             </nav>
-                            <div className=' grid grid-cols-2 gap-4 ' >
-
-                                <div onClick={(e) => { navigate(`/blog-details/${allBlogs[0]?._id}`) }} className=' bg-white rounded-lg p-4 hoverBlur'>
-                                    <div className=' h-80 w-full'>
-                                        <img className=' w-full h-full object-cover' src={allBlogs[0]?.image} alt="" />
-                                    </div>
-                                    <div className=' h-36 overflow-hidden'>
-                                        <h1 className=' text-xl font-bold'>{allBlogs[0]?.title}</h1>
-                                        <p>{parse(`${allBlogs[0]?.description}`)}</p>
-                                    </div>
-                                </div>
-                                <div className=' flex flex-col gap-2 height30 overflow-y-scroll overflow-x-hidden m-2'>
-                                    {
-
-                                        Array.isArray(allBlogs) && allBlogs?.map((val) => {
-                                            return (
-                                                <div ref={slideleft} onClick={(e) => { navigate(`/blog-details/${val?._id}`) }} className='hoverBlur flex flex-row gap-2 bg-white rounded-lg p-2 '>
-                                                    <div className=' w-28 h-24'>
-                                                        <img className=' w-full h-full object-cover' src={val?.image} alt="" />
-                                                    </div>
-                                                    <p className=' text-lg font-bold'>{val?.title}</p>
-                                                </div>
-                                            )
-                                        })
-                                    }
-                                </div>
+                            <div className=' grid grid-cols-4 gap-2'>
+                                {
+                                    Array.isArray(allBlogs) && allBlogs?.map((val, idx) => {
+                                        return (
+                                            <>
+                                                {
+                                                    idx <= 7 && val?.category?.includes("Diversity") ?
+                                                        <div onClick={(e) => { navigate(`/blog-details/${val?._id}`) }} className='hoverBlur bg-white rounded-lg p-4 overflow-hidden'>
+                                                            <div className=' h-72 w-full'>
+                                                                <img className=' w-full h-full object-cover' src={val?.image} alt="" />
+                                                            </div>
+                                                            <div>
+                                                                <h1 className=' text-2xl font-bold textEllipsis py-2'>{val?.title}</h1>
+                                                                <p className=' overflow-hidden h-36'>{parse(`${val?.description}`)}</p>
+                                                            </div>
+                                                        </div> : null
+                                                }
+                                            </>
+                                        )
+                                    })
+                                }
                             </div>
                         </div>
-                        {/* <div>
-                            <div className=' blackBorderBottom'>
-                                <h1 className=' whitespace-nowrap w-fit font-semibold bg-black text-white py-0.5 px-1 mr-10 '>
-                                    Stay Connected
-                                </h1>
-                            </div>
-                        </div> */}
-                    </div>
-                    <div ref={box2} className=' page3'>
-                        <nav className=' flex items-end justify-between greenBorderBottom  mb-3 text-lg '>
-                            <h1 className=' whitespace-nowrap w-fit font-semibold bg-green-600 text-white py-0.5 px-3 mr-10 '>
-                                Latest
-                            </h1>
-                        </nav>
-                        <div className=' grid grid-cols-4 gap-2'>
-                            {
-                                Array.isArray(allBlogs) && allBlogs?.map((val, idx) => {
-                                    return (
-                                        <>
-                                            {
-                                                idx <= 7 ?
-                                                    <div onClick={(e) => { navigate(`/blog-details/${val?._id}`) }} className='hoverBlur bg-white rounded-lg p-4 overflow-hidden'>
-                                                        <div className=' h-72 w-full'>
-                                                            <img className=' w-full h-full object-cover' src={val?.image} alt="" />
-                                                        </div>
-                                                        <div>
-                                                            <h1 className=' text-2xl font-bold textEllipsis py-2'>{val?.title}</h1>
-                                                            <p className=' overflow-hidden h-36'>{parse(`${val?.description}`)}</p>
-                                                        </div>
-                                                    </div> : null
-                                            }
-                                        </>
-                                    )
-                                })
-                            }
-                        </div>
-                    </div>
-                    <div ref={box3} className=' page4'>
-                        <nav className=' flex items-end justify-between babyBlueBorderBottom mb-3 text-lg '>
-                            <h1 className=' whitespace-nowrap w-fit font-semibold bg-blue-600 text-white py-0.5 px-1 mr-10 '>
-                                Diversity
-                            </h1>
-                        </nav>
-                        <div className=' grid grid-cols-4 gap-2'>
-                            {
-                                Array.isArray(allBlogs) && allBlogs?.map((val, idx) => {
-                                    return (
-                                        <>
-                                            {
-                                                idx <= 7 && val?.category?.includes("Diversity") ?
-                                                    <div onClick={(e) => { navigate(`/blog-details/${val?._id}`) }} className='hoverBlur bg-white rounded-lg p-4 overflow-hidden'>
-                                                        <div className=' h-72 w-full'>
-                                                            <img className=' w-full h-full object-cover' src={val?.image} alt="" />
-                                                        </div>
-                                                        <div>
-                                                            <h1 className=' text-2xl font-bold textEllipsis py-2'>{val?.title}</h1>
-                                                            <p className=' overflow-hidden h-36'>{parse(`${val?.description}`)}</p>
-                                                        </div>
-                                                    </div> : null
-                                            }
-                                        </>
-                                    )
-                                })
-                            }
-                        </div>
-                    </div>
-                </section>
+                    </section> : null}
+
             </div>
             <Footer />
         </section>

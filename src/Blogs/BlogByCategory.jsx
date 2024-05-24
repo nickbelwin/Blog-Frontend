@@ -8,7 +8,7 @@ import parse from 'html-react-parser';
 function BlogByCategory(props) {
     const { category } = useParams();
     console.log(category);
-    const naviagte = useNavigate();
+    const navigate = useNavigate();
     const [blog, setBlog] = useState({});
     const [loading, setLoading] = useState(false);
     const [postDate, setPostDate] = useState("");
@@ -42,7 +42,7 @@ function BlogByCategory(props) {
         <>
             <section className=' width80 m-auto'>
                 <nav className=' flex flex-row items-center text-sm'>
-                    <nav onClick={(e) => { naviagte("/") }} className=' text-yellow-300 cursor-pointer'>Home</nav>
+                    <nav onClick={(e) => { navigate("/") }} className=' text-yellow-300 cursor-pointer'>Home</nav>
                     <span className=' px-1'><svg class="separator" fill="currentColor" width="8" height="8" viewBox="0 0 8 8" aria-hidden="true" focusable="false">
                         <path d="M2,6.9L4.8,4L2,1.1L2.6,0l4,4l-4,4L2,6.9z"></path>
                     </svg></span>
@@ -56,7 +56,7 @@ function BlogByCategory(props) {
                                     return (
                                         <>
                                             {
-                                                <div onClick={(e) => { naviagte(`/blog-details/${val?._id}`) }} className='hoverBlur bg-white rounded-lg p-4 overflow-hidden'>
+                                                <div onClick={(e) => { navigate(`/blog-details/${val?._id}`) }} className='hoverBlur bg-white rounded-lg p-4 overflow-hidden'>
                                                     <div className=' h-72 w-full rounded-lg overflow-hidden'>
                                                         <img className=' w-full h-full object-cover' src={val?.image} alt="" />
                                                     </div>

@@ -4,7 +4,7 @@ import "./footer.css";
 function Footer(props) {
     return (
         <footer>
-            <footer className=' bg-gray-100 grid footerOne p-10'>
+            <footer className=' bg-gray-100 grid footerOne p-10 mt-20'>
                 <div className=' flex flex-col gap-4'>
                     <img className=' w-52' src="/img/footer-logo.webp" alt="" />
                     <p className=' text-gray-500 '>Rajashri Rajashekhar is a multifaceted individual. As a dedicated philanthropist, prolific author and a seasoned POSH, HR & Business consultant, she brings a plethora of knowledge to empower organizations and individuals alike, fostering positive change and inclusive workplaces.</p>
